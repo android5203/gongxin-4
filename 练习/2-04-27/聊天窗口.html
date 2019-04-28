@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <ul>
+            <li v-for="item in arr">
+                {{item}}
+                <a href="javascript:;" @click="del(item)">Delete</a>
+            </li>
+        </ul>
+
+        <input type="text" v-model="str"/>
+        <button type="button" @click="send">发送</button>
+
+    </div>
+    
+
+    <script>
+    new Vue({
+        el: "#app",
+        data: {
+            str: "",
+            arr: [],
+            arr1: []
+        },
+        methods: {
+            send(){
+                this.arr.push(this.str);
+                this.str = ""
+            },
+            del(str1){
+                
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>
