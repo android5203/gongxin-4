@@ -12,9 +12,9 @@
 
     <div id="app">
         <ul>
-            <li v-for="item in arr">
+            <li v-for="(item,index) in arr">
                 {{item}}
-                <a href="javascript:;" @click="del(item)">Delete</a>
+                <a href="javascript:;" @click="del(index)">Delete</a>
             </li>
         </ul>
 
@@ -29,16 +29,15 @@
         el: "#app",
         data: {
             str: "",
-            arr: [],
-            arr1: []
+            arr: []
         },
         methods: {
             send(){
                 this.arr.push(this.str);
                 this.str = ""
             },
-            del(str1){
-                
+            del(index){
+                this.arr.splice(index, 1);
             }
         }
     })
