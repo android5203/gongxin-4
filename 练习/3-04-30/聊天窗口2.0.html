@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="wraper" @keydown.esc.exact="clear">
+            <div class="head">
+                聊天窗口 2.0
+            </div>
+
+            <div class="cont">
+                <p v-for="item in messageList">
+                    <span>时间({{item.time}}) </span>
+                    <br />
+                    消息 ： {{item.str}}
+                </p>
+            </div>
+            <div class="foot">
+
+                <textarea v-model="message"
+                    @keydown.ctrl.enter.exact="send"
+                    
+                ></textarea>
+                
+                <button 
+                type="button"
+                @click="send"
+                >发送</button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                messageList: [],
+                message: ''
+            },
+            methods: {
+                send(){
+                    let obj = {
+                        time : new Date().toLocaleString(),
+                        str: this.message
+                    }
+                    this.messageList.push(obj);
+                    this.message = '';
+                },
+                clear(){
+                    this.messageList.splice(0);
+                }
+            },
+        })
+    </script>
+
+</body>
+
+</html>

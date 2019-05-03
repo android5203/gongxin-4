@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="cs">
+
+            <div class="leftBox box">
+                <p>
+                    <input type="checkbox" id="all1" v-model="all1">
+                    <label for="all1">全选</label>
+                </p>
+                <p v-for="item in list1">
+                    <input type="checkbox" v-model="item.checked">
+                    {{item.name}}
+                </p>
+            </div>
+
+            <div class="btnBox box">
+                <button @click="goLeft"> 向左 </button>
+                <button @click="goRight"> 向右 </button>
+            </div>
+
+            <div class="rightBox box">
+                <p>
+                    <input type="checkbox" id="all2" v-model="all2">
+                    <label for="all2">全选</label>
+                </p>
+                <p v-for="item in list2">
+                    <input type="checkbox" v-model="item.checked">
+                    {{item.name}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            watch: {
+                all1(newVal, oldVal) {
+                    this.list1.forEach((item, index, arr)=>{
+                        item.checked = newVal;
+                    })
+                },
+                all2(newVal, oldVal) {
+                    this.list2.forEach((item, index, arr)=>{
+                        item.checked = newVal;
+                    })
+                },
+            },
+            methods: {
+                goLeft() { 
+
+                    // 拿到选中的部分
+                    var arr1 = this.list2.filter((item, index, arr)=>{
+                        return item.checked;
+                    })
+
+                    // 拿到未选中的数组
+                    var arr2 = this.list2.filter((item, index, arr)=>{
+                        return !item.checked;
+                    })
+
+                    // 将选中的数组的选中去掉
+                    var arr1_1 = arr1.map((item, index, arr)=>{
+                        return {name: item.name, checked: false}
+                    })
+
+                    // 选中的输入，push到左边，list1
+                    this.list1.push(...arr1_1);
+                    this.list2 = arr2;
+
+                    // 全选去掉
+                    this.all2 = false;
+
+                },
+                goRight() { 
+                    
+                    // 拿到选中的部分
+                    var arr1 = this.list1.filter((item, index, arr)=>{
+                        return item.checked;
+                    })
+
+                    // 拿到未被选中的数组
+                    var arr2 = this.list1.filter((item, index, arr)=>{
+                        return !item.checked;
+                    })
+
+                    // 去掉选中部分的 选中
+                    var arr1_1 = arr1.map((item, index, arr)=>{
+                        return {name: item.name,checked:false}
+                    })
+
+                    this.list2.push(...arr1_1);
+                    this.list1 = arr2;
+
+                    // 全选去掉
+                    this.all1 = false;
+                }
+            },
+            data() {
+                return {
+                    all1: false,
+                    all2: false,
+                    list1: [
+                        {
+                            name: "中国",
+                            checked: false
+                        },
+                        {
+                            name: "印度",
+                            checked: false
+                        },
+                        {
+                            name: "日本",
+                            checked: false
+                        },
+                        {
+                            name: "俄罗斯",
+                            checked: false
+                        },
+                        {
+                            name: "泰国",
+                            checked: false
+                        }
+                    ],
+                    list2: [
+                        {
+                            name: "法国",
+                            checked: false
+                        },
+                        {
+                            name: "德国",
+                            checked: false
+                        },
+                        {
+                            name: "意大利",
+                            checked: false
+                        },
+                        {
+                            name: "波兰",
+                            checked: false
+                        },
+                        {
+                            name: "英国",
+                            checked: false
+                        }
+                    ],
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

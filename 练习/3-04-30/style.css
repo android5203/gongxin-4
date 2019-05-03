@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: '黑体';
+}
+
+li, ul {
+    list-style: none;
+}
+
+.wraper {
+    width: 800px;
+    height: 600px;
+    border: 1px solid #999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.wraper .head {
+    width: 100%;
+    height: 60px;
+    background-color: rgb(0, 4, 231);
+    line-height: 60px;
+    font-size: 16px;
+    color: #fff;
+    text-indent: 50px;
+    background-image: url(./ic01.png);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 26px center;
+}
+
+.wraper .cont {
+    width: 100%;
+    height: 360px;
+    overflow: auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.wraper .cont p {
+    line-height: 26px;
+    padding-bottom: 15px;
+}
+.wraper .cont p span {
+    color: #666;
+    font-size: 12px;
+}
+/* 滚动条样式 start */
+
+.wraper .cont::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 8px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.wraper .cont::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #ccc;
+}
+
+.wraper .cont::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #EDEDED;
+}
+.wraper .foot {
+    height: 180px;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.wraper .foot textarea{
+    width: 100%;
+    height: 140px;
+    box-sizing: border-box;
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    color: #333;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.wraper .foot button {
+    width: 100px;
+    height: 30px;
+    background-color: rgb(0, 4, 231);
+    border: 0;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    float: right;
+    outline: none;
+    cursor: pointer;
+}
+.wraper .foot button:hover {
+    background-color: rgb(3, 6, 177);
+}
+
+
+
+/* 穿梭框 */
+.cs{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+.cs .leftBox,
+.cs .rightBox {
+    width: 300px;
+    height: 400px;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px 3px rgba(0,0,0,.1);
+    overflow: auto;
+}
+.cs .btnBox button {
+    display: block;
+    width: 80px;
+    height: 30px;
+    background-color: rgb(0, 68, 255);
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    margin: 5px 0;
+    cursor: pointer;
+    outline: none;
+}
+.cs .btnBox button:hover {
+    background-color: rgb(0, 58, 218);
+}
+.cs .btnBox {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 15px;
+}
+.cs .box p {
+    line-height: 40px; 
+}
+
+
+/* 滚动条样式 start */
+
+.box::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 8px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.box::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #ccc;
+}
+
+.box::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #EDEDED;
+}
+
+
+/* 开关 */
+.sw {
+    width: 48px;
+    height: 24px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin: 100px;
+    border-radius: 30px;
+    background-color: #f4f4f4;
+    transition: all .5s;
+}
+.sw .swBox {
+    width: 22px;
+    height: 22px;
+    display: block;
+    background-color: #fff;
+    border-radius: 22px;
+    transition: all .5s;
+    transform: translateX(0);
+}
+.sw.on {
+    background-color: rgb(0, 60, 255);
+}
+.sw.on .swBox {
+    transform: translateX(24px);
+}
