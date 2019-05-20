@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
+    <script src="./Vue/vue.js"></script>
+    <style>
+    td{
+        text-align: center;
+        width: 12.5%;
+    }
+    .glyphicon {
+        font-size: 20px;
+        color: #333;
+    }
+    .glyphicon.red {
+        color: red;
+    }
+    .glyphicon.gray {
+        color: #999;
+    }
+    .glyphicon.blue {
+        color: blue;
+    }
+    .glyphicon.green {
+        color: green;
+    }
+
+    .glyphicon.lg {
+        font-size: 30px;
+    }
+    .glyphicon.md {
+        font-size: 20px;
+    }
+    .glyphicon.sm {
+        font-size: 16px;
+    }
+    .glyphicon.xs {
+        font-size: 12px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+
+    <script>
+        Vue.component('icon', {
+            props: {
+                name: String,
+                size: String,
+                color: String
+            },
+            template: `
+            <span :class="['glyphicon', 'glyphicon-'+name, size, color]" aria-hidden="true"></span>
+            `
+        })
+        new Vue({
+            el: "#app",
+            template: `
+            <div id="app" class="container">
+                <table class="table table-bordered table-hover">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <icon name="asterisk" color="red" />
+                                <p>asterisk red</p>
+                            </td>
+                            <td>
+                                <icon name="plus" color="gray"/>
+                                <p>plus gray</p>
+                            </td>
+                            <td>
+                                <icon name="euro" color="blue"/>
+                                <p>euro blue</p>
+                            </td>
+                            <td>
+                                <icon name="eur" color="green"/>
+                                <p>eur green</p>
+                            </td>
+                            <td>
+                                <icon name="minus" size="lg"/>
+                                <p>minus lg</p>
+                            </td>
+                            <td>
+                                <icon name="cloud" size="md"/>
+                                <p>cloud md</p>
+                            </td>
+                            <td>
+                                <icon name="envelope" size="sm"/>
+                                <p>envelope sm</p>
+                            </td>
+                            <td>
+                                <icon name="pencil" size="xs"/>
+                                <p>pencil xs</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <icon name="glass" />
+                                <p>glass</p>
+                            </td>
+                            <td>
+                                <icon name="music" />
+                                <p>music</p>
+                            </td>
+                            <td>
+                                <icon name="search" />
+                                <p>search</p>
+                            </td>
+                            <td>
+                                <icon name="heart" />
+                                <p>heart</p>
+                            </td>
+                            <td>
+                                <icon name="star" />
+                                <p>star</p>
+                            </td>
+                            <td>
+                                <icon name="user" />
+                                <p>user</p>
+                            </td>
+                            <td>
+                                <icon name="film" />
+                                <p>film</p>
+                            </td>
+                            <td>
+                                <icon name="th-large" />
+                                <p>th-large</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <icon name="th" />
+                                <p>th</p>
+                            </td>
+                            <td>
+                                <icon name="th-list" />
+                                <p>th-list</p>
+                            </td>
+                            <td>
+                                <icon name="ok" />
+                                <p>ok</p>
+                            </td>
+                            <td>
+                                <icon name="remove" />
+                                <p>remove</p>
+                            </td>
+                            <td>
+                                <icon name="zoom-in" />
+                                <p>zoom-in</p>
+                            </td>
+                            <td>
+                                <icon name="zoom-out" />
+                                <p>zoom-out</p>
+                            </td>
+                            <td>
+                                <icon name="off" />
+                                <p>off</p>
+                            </td>
+                            <td>
+                                <icon name="signal" />
+                                <p>signal</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

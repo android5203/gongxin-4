@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
+    <script src="./Vue/vue.js"></script>
+    <style>
+        table td,
+        table th {
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        Vue.component('gx-button', {
+            props: {
+                color: {
+                    type: String,
+                    default: 'default'
+                },
+                size: {
+                    type: String,
+                    default: ''
+                },
+                block: {
+                    type: Boolean,
+                    default: false
+                },
+                active: {
+                    type: Boolean,
+                    default: false
+                }
+            },
+            computed: {
+                sizeClass() {
+                    if (this.size == '' || this.size == null) {
+                        return '';
+                    } else {
+                        return 'btn-' + this.size;
+                    }
+                }
+            },
+            template: `
+            <button 
+                :class="[
+                    'btn',
+                    'btn-'+color, 
+                    sizeClass, 
+                    {'btn-block': block},
+                    {'active': active}
+                    ]" 
+                type="button">
+                <slot>Button</slot>
+            </button>
+            `
+        });
+
+        new Vue({
+            el: "#app",
+            template: `
+            <div id="app" class="container">
+
+                <table class="table ">
+                    <tr>
+                        <th>写法</th>
+                        <th>样式</th>
+                    </tr>
+                    <tr>
+                        <td>color="default"</td>
+                        <td><gx-button color="default">默认按钮（default）</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>color="primary"</td>
+                        <td><gx-button color="primary">首选项（primary）</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>color="success"</td>
+                        <td><gx-button color="success">成功（success）</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>color="info"</td>
+                        <td><gx-button color="info">一般信息（Info）</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>color="warning"</td>
+                        <td><gx-button color="warning">警告（warning）</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>color="danger"</td>
+                        <td><gx-button color="danger">危险（danger）</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>color="link"</td>
+                        <td><gx-button color="link">连接（Link）</gx-button></td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <tr>
+                        <th>大小</th>
+                        <th>写法</th>
+                        <th>样式</th>
+                    </tr>
+                    <tr>
+                        <td>超小</td>
+                        <td>size="xs"</td>
+                        <td><gx-button size="xs">超小(xs)</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>小按钮</td>
+                        <td>size="sm"</td>
+                        <td><gx-button size="sm">小按钮(sm)</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>默认大小</td>
+                        <td></td>
+                        <td><gx-button>默认大小</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>大按钮</td>
+                        <td>size="lg"</td>
+                        <td><gx-button size="lg">大按钮(lg)</gx-button></td>
+                    </tr>
+                </table>
+
+                <table class='table'>
+                <tr>
+                    <th>写法</th>
+                    <th>样式</th>
+                </tr>
+                <tr>
+                    <td>:block="true"</td>
+                    <td><gx-button :block="true">块级(true)</gx-button></td>
+                </tr>
+                <tr>
+                    <td>:block="false"</td>
+                    <td><gx-button :block="false">行间块级元素(false)</gx-button></td>
+                </tr>
+                </table>
+                
+                
+                <table>
+                    <tr>
+                        <th>写法</th>
+                        <th>样式</th>
+                    </tr>
+                    <tr>
+                        <td>:active="true"</td>
+                        <td><gx-button :active="true">激活状态</gx-button></td>
+                    </tr>
+                    <tr>
+                        <td>:active="false"</td>
+                        <td><gx-button :active="false">未激活状态</gx-button></td>
+                    </tr>
+                </table>
+                
+                
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

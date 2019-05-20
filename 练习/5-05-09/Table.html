@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
+    <script src="./Vue/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        Vue.component('gx-table', {
+            props: {
+                colums: {
+                    type: Array
+                },
+                data: {
+                    type: Array
+                },
+                striped: Boolean,
+                bordered: Boolean,
+                hover: Boolean
+            },
+            template: `
+            <table 
+                :class="['table', 
+                {'table-striped': striped},
+                {'table-bordered': bordered},
+                {'table-hover': hover}
+                ]">
+                <tbody>
+                    <tr>
+                        <th v-for="item in colums">{{item}}</th>
+                    </tr>
+                    <tr v-for="item in data">
+                        <td v-for="i in item">{{i}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            `
+        })
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    colums: ['Id','Name', 'Age', "Email"],
+                    data: [
+                        {Id:'1',Name: '宫鑫', Age: 22, 'Email': '1462807687@qq.com'},
+                        {Id:'2',Name: '麦兜', Age: 5, 'Email': 'maidou@qq.com'},
+                        {Id:'3',Name: '乔治', Age: 6, 'Email': 'qiaozhi@qq.com'},
+                    ],
+                }
+            },
+            template: `
+            <div id="app" class="container">
+                <h3>普通表格</h3>
+                <gx-table 
+                    :colums='colums' 
+                    :data='data'
+                    ></gx-table>
+
+                    <h3>条纹状表格</h3>
+                    <p>:striped="true"</p>
+                <gx-table 
+                    :colums='colums' 
+                    :data='data'
+                    :striped="true"
+                    ></gx-table>
+
+                    <h3>带边框的表格</h3>
+                    <p>:bordered="true"</p>
+                <gx-table 
+                    :colums='colums' 
+                    :data='data'
+                    :bordered="true"
+                    ></gx-table>
+
+                    <h3>鼠标悬停</h3>
+                    <p>:hover="true"</p>
+                <gx-table 
+                    :colums='colums' 
+                    :data='data'
+                    :hover="true"
+                    ></gx-table>
+            </div>
+            `
+        })
+    </script>
+
+
+</body>
+
+</html>
