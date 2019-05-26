@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<style>
+.gx-switch {
+    width: 44px;
+    height: 22px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 22px;
+    box-sizing: border-box;
+    background-color: #e4e4e4;
+    cursor: pointer;
+    transition: all .5s;
+}
+.gx-switch span{
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    transition: all .5s;
+}
+.gx-switch.on {
+    background-color: rgb(65, 147, 255);
+    border: 1px solid rgb(65, 147, 255);
+}
+.gx-switch.on span {
+    transform: translateX(22px);
+}
+</style>
+<body>
+
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        Vue.component('gx-switch', {
+            props: {
+                onOff: {
+                    type: Boolean,
+                    default: false
+                }
+            },
+            data(){
+                return {
+                    iOnOff: this.onOff
+                }
+            },
+            watch: {
+                onOff(newVal, oldVal) {
+                    this.iOnOff = newVal;
+                },
+                iOnOff(newVal, oldVal) {
+                    this.$emit('update', newVal);
+                }
+            },
+            template: `
+            <div :class="['gx-switch', {'on': iOnOff}]" @click="iOnOff = !iOnOff">
+                <span></span>
+            </div>
+            `
+        })
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    onOff: false
+                }
+            },
+            methods: {
+                update(val){
+                    this.onOff = val;
+                }
+            },
+            template: `
+            <div>
+                <input type="checkbox" v-model="onOff" id="test"/>
+                <label for="test">父级开关{{onOff}}</label>
+                <br /><br />
+                <gx-switch :onOff="onOff" @update="update" />
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

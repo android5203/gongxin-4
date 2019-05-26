@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        h4 {
+            margin: 10px;
+        }
+
+        .inputSearch {
+            margin: 10px;
+        }
+
+        .inputSearch input {
+            width: 240px;
+            height: 30px;
+            outline: none;
+            padding: 0 10px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .inputSearch ul {
+            width: 240px;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-top: 0;
+            border-bottom: 0;
+        }
+
+        .inputSearch ul li {
+            line-height: 30px;
+            border-bottom: 1px solid #ccc;
+            padding: 0 10px;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .inputSearch ul li:hover,
+        .inputSearch ul li.on {
+            background-color: #e4e4e4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- 
+            1. 传入选择列表
+            2. 返回选中项
+         -->
+    </div>
+
+
+    <script>
+        Vue.component('inputSearch', {
+            props: {
+                searchList: Array
+            },
+            data() {
+                return {
+                    iSearchList: [...this.searchList],
+                    str: ''
+                }
+            },
+            computed: {
+                search(){
+                    return this.iSearchList.filter((item, index, arr)=>{
+                        return new RegExp(this.str).test(item);
+                    })
+                }
+            },
+            methods: {
+                selected(val){
+                    this.str = val;
+                    this.$emit('update', val);
+                }
+            },
+            template: `
+            <div class='inputSearch'>
+                <input type="text" v-model="str"/>
+                <ul v-show="str">
+                    <li 
+                        v-for="(item, index) in search"
+                        @click="selected(item)"
+                        >{{item}}</li>
+                </ul>
+            </div>
+            `
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                searchList: [
+                    '张三',
+                    '李四',
+                    '王五',
+                    '赵六',
+                    '李世民',
+                    '李三'
+                ],
+                result: ''
+            },
+            methods:{
+                update(val){
+                    this.result = val;
+                }
+            },
+            template: `
+            <div id="app">
+                <h4>结果：{{result}}</h4>
+                <inputSearch :searchList="searchList" @update="update" />
+            </div>
+            `,
+        })
+    </script>
+</body>
+
+</html>

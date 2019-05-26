@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    ul,li {
+        list-style: none;
+    }
+    h4 {
+        margin: 10px;
+    }
+    .inputEmail {
+        margin: 10px;
+    }
+    .inputEmail input {
+        width: 240px;
+        height: 30px;
+        outline: none;
+        padding: 0 10px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    .inputEmail ul {
+        width: 240px;
+        background-color: #f7f7f7;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-top: 0;
+        border-bottom: 0;
+    }
+    .inputEmail ul li {
+        line-height: 30px;
+        border-bottom: 1px solid #ccc;
+        padding: 0 10px;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .inputEmail ul li:hover,
+    .inputEmail ul li.on {
+        background-color: #e4e4e4;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+        <!-- 
+            1. 传入后缀
+            2. 返回选中的后缀
+         -->
+    </div>
+
+
+    <script>
+        const InputEmail = {
+            props: {
+                emailList: Array
+            },
+            data(){
+                return {
+                    iEmailList: [...this.emailList],
+                    str: '',
+                    ind: 0,
+                }
+            },
+            computed: {
+                emailAdd(){
+                    if(/@/g.test(this.str)) return;
+                    return this.iEmailList.map((item, index, arr)=>{
+                        return this.str + item;
+                    })
+                }
+            },
+            methods: {
+                selected(email){
+                    this.str = email;
+                    this.$emit('update', this.str);
+                },
+                enter(){
+                    if(this.str == '') return;
+                    this.str = this.emailAdd[this.ind];
+                    this.ind = 0;
+                    this.$emit('update', this.str);
+                },
+            },
+            template: `
+            <div class="inputEmail">
+                <input 
+                    type="text" 
+                    v-model="str"
+                    @keydown.up.prevent="ind<=0 ? ind=0:ind--"
+                    @keydown.down.prevent="ind>=emailAdd.length-1 ? ind=emailAdd.length-1: ind++"
+                    @keydown.enter.prevent="enter"
+                        />
+                <ul v-show="str">
+                    <li 
+                        v-for="(email, index) in emailAdd"
+                        :class="{'on': ind===index}"
+                        @click="selected(email)"
+                        >{{email}}</li>
+                </ul>
+            </div>
+            `
+        };
+
+        new Vue({
+            el: "#app",
+            data: {
+                emailList: [
+                    '@qq.com',
+                    '@168.com',
+                    '@gongx.top',
+                    '@ali.com'
+                ],
+                result: ''
+            },
+            components: {
+                InputEmail
+            },
+            methods: {
+                update(val){
+                    this.result = val;
+                }
+            },
+            template: `
+            <div>
+                <h4>父级-最终邮箱为：{{result}}</h4>
+                <hr />
+                <inputEmail :emailList="emailList" @update="update"></inputEmail>
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

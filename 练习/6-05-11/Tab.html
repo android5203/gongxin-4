@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tab {
+            width: 800px;
+            height: 500px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: #f4f4f4;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        li {
+            float: left;
+            width: 100px;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        li:hover,
+        li.on {
+            background-color: #e1e1e1;
+        }
+
+        .tab .head {
+            width: 100%;
+            height: 50px;
+            box-sizing: border-box;
+        }
+
+        .tab .con {
+            width: 100%;
+            height: 450px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+    <script>
+        const con1 = {
+            template: `
+            <div class="con">
+                <p>内容1</p>
+                <input type="text" placeholder="内容1 "/>
+            </div>
+            `
+        };
+        const con2 = {
+            template: `
+            <div class="con">
+                <p>内容2</p>
+                <input type="text" placeholder="内容2 "/>
+            </div>
+            `
+        };
+        const con3 = {
+            template: `
+            <div class="con">
+                <p>内容3</p>
+                <input type="text" placeholder="内容3 "/>
+            </div>
+            `
+        };
+
+        Vue.component('Tab', {
+            props: {
+                list: Array
+            },
+            data() {
+                return {
+                    iList: [...this.list],
+                    selected: 'con1'
+                }
+            },
+            components: {
+                con1,
+                con2,
+                con3
+            },
+            template: `
+            <div class="tab">
+                <ul class="head">
+                    <li 
+                        v-for="(item,index) in iList"
+                        @click="selected = item.id"
+                        :class="{'on': selected === item.id}"
+                        >{{item.name}}</li>
+                </ul>
+
+                <keep-alive>
+                    <component :is="selected"></component>
+                </keep-alive>
+            </div>
+            `
+        });
+
+
+
+        new Vue({
+            el: "#app",
+            data: {
+                list: [
+                    {
+                        id: 'con1',
+                        name: '选项卡1'
+                    },
+                    {
+                        id: 'con2',
+                        name: '选项卡2'
+                    },
+                    {
+                        id: 'con3',
+                        name: '选项卡3'
+                    },
+                ],
+            },
+            template: `
+            <div>
+                <Tab :list='list'></Tab>
+            </div>
+            `,
+        })
+    </script>
+
+</body>
+
+</html>

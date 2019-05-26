@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .card {
+            width: 50%;
+            height: 500px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .card .head {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .card .body {
+            height: 460px;
+            overflow: auto;
+            line-height: 30px;
+            font-size: 14px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .card .body p {
+            line-height: 30px;
+            font-size: 14px;
+            text-indent: 2em;
+            padding-bottom: 15px;
+        }
+
+        .card .body::-webkit-scrollbar {
+            width: 6px;
+            height: 1px;
+        }
+
+        .card .body::-webkit-scrollbar-thumb {
+            border-radius: 6px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: #aaa;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+
+        .card .body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            background: #EDEDED;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        Vue.component('Card', {
+            template: `
+            <div class="card">
+                <div class="head">
+                    <slot name="head">默认标题</slot>
+                </div>
+                <div class="body">
+                    <slot name="body"></slot>
+                </div>
+            </div>
+            `
+        });
+        new Vue({
+            el: "#app",
+            template: `
+            <div>
+                <Card>
+                    <template v-slot:head>
+                        <h3>优秀的人都是狠角色</h3>
+                    </template>
+
+                    <template v-slot:body>
+                        <p>
+                            也有人总结了，“罚全年酬薪”，誓与团队共进退的气魄，正是干大事成大业的人需要的气魄。对自己狠，自我加压，才能逼自己成长。作为公众人物，敢在微博十几亿流量的大众面前晒目标和考核标准，我打心底里认为这个教练真狠。完全不给自己留余地，是要把自己往死里逼了。不过细看那些取得不错成绩的人，确实对自己都够狠的。他们敢对自己下手，像对外人一样，毫不留情。社会竞争如此激烈，如果不能时刻保持逆流而上的状态，很快就会被河水冲走。人生充满不确定，变化实在太快了，只有狠狠地逼自己不断成长才能应对。02我之前写过韩雪学习英语的经历。韩雪在录播节目后从不约饭，每天坚持学习英语2-3个小时，手机里的社交软件几乎全部卸载，为的是腾出更多时间学习英语。文章发表后，朋友圈里有个熟人私下跟我说，她也要效仿韩雪，把手机里的社交软件都卸载了，准备来一次脱胎换骨的成长。
+                        </p>
+                        <p>
+                            也有人总结了，“罚全年酬薪”，誓与团队共进退的气魄，正是干大事成大业的人需要的气魄。对自己狠，自我加压，才能逼自己成长。作为公众人物，敢在微博十几亿流量的大众面前晒目标和考核标准，我打心底里认为这个教练真狠。完全不给自己留余地，是要把自己往死里逼了。不过细看那些取得不错成绩的人，确实对自己都够狠的。他们敢对自己下手，像对外人一样，毫不留情。社会竞争如此激烈，如果不能时刻保持逆流而上的状态，很快就会被河水冲走。人生充满不确定，变化实在太快了，只有狠狠地逼自己不断成长才能应对。02我之前写过韩雪学习英语的经历。韩雪在录播节目后从不约饭，每天坚持学习英语2-3个小时，手机里的社交软件几乎全部卸载，为的是腾出更多时间学习英语。文章发表后，朋友圈里有个熟人私下跟我说，她也要效仿韩雪，把手机里的社交软件都卸载了，准备来一次脱胎换骨的成长。
+                        </p>
+                    </template>
+                </Card>
+            <div/>
+            `
+        })
+    </script>
+</body>
+
+</html>
