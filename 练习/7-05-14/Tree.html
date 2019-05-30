@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./animate.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            width: 300px;
+            /* background-color: red; */
+            overflow: hidden;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul li {
+            padding-left: 15px;
+            width: 100%;
+        }
+
+        ul li p {
+            width: 100%;
+            line-height: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            padding-left: 20px;
+            background-image: url(./bj.png);
+            background-size: 14px;
+            background-position: left center;
+            background-repeat: no-repeat;
+        }
+
+        ul li p a {
+            width: 30px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            background-color: #999;
+            color: #fff;
+            border-radius: 3px;
+            transition: all .5s;
+        }
+
+        ul li p a:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        Vue.component('Tree', {
+            name: 'Tree',
+            props: {
+                treeData: Array,
+            },
+            data() {
+                return {
+                    addData: {
+                        name: '地区名称',
+                        show: true,
+                    }
+                }
+            },
+            template: `
+            <ul>
+                <li v-for="item in treeData">
+                    <p>
+                        <span @click="item.show = !item.show">{{item.name}}</span>
+                        <a href="javascript:;" @click="item.children.push(addData)">+</a>
+                        <a href="javascript:;" @click="item.children = []">-</a>
+                    </p>
+                    
+                    <Tree 
+                        :treeData="item.children" 
+                        v-if="item.children"
+                        v-show="item.show"
+                    />
+                </li>
+            </ul>
+            `
+        });
+
+        new Vue({
+            el: '#app',
+            template: `
+            <Tree :treeData="treeData" />
+            `,
+            data: {
+                treeData:
+                    [
+                        {
+                            name: '山东省',
+                            show: true,
+                            children: [
+                                {
+                                    name: '潍坊市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '临朐县',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '潍城区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '奎文区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '寿光县',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '日照市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '岚山区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '五莲县',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '济南市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '市中区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '高新区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '章区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '槐荫区',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                            ]
+                        },
+                        {
+                            name: '陕西省',
+                            show: true,
+                            children: [
+                                {
+                                    name: '西安市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '未央区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '莲湖区',
+                                            show: true,
+                                            children: [
+                                                {
+                                                    name: '红庙坡街道',
+                                                    show: true,
+                                                },
+                                                {
+                                                    name: '梨园路',
+                                                    show: true,
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            name: '高新区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '浐灞',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '咸阳市',
+                                    show: true,
+                                },
+                                {
+                                    name: '汉中市',
+                                    show: true,
+                                }
+                            ]
+                        }
+                    ]
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        Vue.component('Tree', {
+            // 【注意 1】要做递归，要加上name属性；
+            // 全局组件可以不要，因为会自动生成，局部组件一定要添加上 name
+            name: 'Tree',
+            props: {
+                treeData: Array
+            },
+            template: `
+            <ul>
+                <!--【注意 2】在循环的 li里边，调用了自身组件-->
+                <li v-for="item in treeData">
+
+                    <p @click="item.show = !item.show">{{item.name}}</p>
+                    
+                    <Tree :treeData="item.children" 
+                        v-if="Array.isArray(item.children)" 
+                        v-show="item.show"/>
+                </li>
+            </ul>
+            `,
+        });
+
+        new Vue({
+            el: "#app",
+            template: `
+            <Tree :treeData="treeData"/>
+            `,
+            data: {
+                treeData:
+                    [
+                        {
+                            name: '山东省',
+                            show: true,
+                            children: [
+                                {
+                                    name: '潍坊市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '临朐县',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '潍城区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '奎文区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '寿光县',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '日照市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '岚山区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '五莲县',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '济南市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '市中区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '高新区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '章区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '槐荫区',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                            ]
+                        },
+                        {
+                            name: '陕西省',
+                            show: true,
+                            children: [
+                                {
+                                    name: '西安市',
+                                    show: true,
+                                    children: [
+                                        {
+                                            name: '未央区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '莲湖区',
+                                            show: true,
+                                            children: [
+                                                {
+                                                    name: '红庙坡街道',
+                                                    show: true,
+                                                },
+                                                {
+                                                    name: '梨园路',
+                                                    show: true,
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            name: '高新区',
+                                            show: true,
+                                        },
+                                        {
+                                            name: '浐灞',
+                                            show: true,
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '咸阳市',
+                                    show: true,
+                                },
+                                {
+                                    name: '汉中市',
+                                    show: true,
+                                }
+                            ]
+                        }
+                    ]
+            },
+        })
+    </script>
+</body>
+
+</html>

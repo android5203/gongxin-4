@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+
+    <script>
+
+        Vue.component('Page', {
+            props: {
+                // 数据总数
+                total: {
+                    type: Number,
+                    default: 0
+                },
+                // 当前页码
+                current: {
+                    type: Number,
+                    default: 1
+                },
+                // 每页条数
+                pageSize: {
+                    type: Number,
+                    default: 10
+                }
+            },
+            data() {
+                return {
+                    iCurrent: this.current
+                }
+            },
+            computed: {
+                page() {
+                    if (!this.total) return 0;
+                    return Math.ceil(this.total / this.pageSize);
+                },
+                page50() {
+                    return this.page / 2;
+                },
+                befores() {
+                    if (this.iCurrent > this.page50) {
+                        return [1];
+                    }
+                    const arr = [];
+                    for (let i = 1; i <= this.iCurrent + 2; i++) {
+                        arr.push(i)
+                    };
+                    return arr;
+                },
+                afters() {
+                    if (this.iCurrent <= this.page50) {
+                        return [this.page];
+                    }
+                    const arr = [];
+                    for (let i = this.iCurrent - 2; i <= this.page; i++) {
+                        arr.push(i)
+                    };
+                    return arr;
+                }
+            },
+            template: `
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li @click='iCurrent==1 ? iCurrent=1:iCurrent--'>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+
+                    <li 
+                        v-for="item in befores" 
+                        :class="{'active': item === iCurrent}"
+                        @click="iCurrent = item"
+                        >
+                        <a href="#">{{item}}</a>
+                    </li>
+
+                    <li><a href="#">...</a></li>
+
+                    <li 
+                        v-for="item in afters"
+                        :class="{'active': item === iCurrent}"
+                        @click="iCurrent = item"
+                        >
+                        <a href="#">{{item}}</a>
+                    </li>
+
+                    <li @click="iCurrent>=page? iCurrent=page:iCurrent++">
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
+            `
+        });
+
+        new Vue({
+            el: '#app',
+            template: `
+            <div id="app">
+                <Page :total="100"></Page>
+            </div>
+            `,
+        })
+    </script>
+</body>
+
+</html>

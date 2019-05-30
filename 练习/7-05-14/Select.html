@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+    *{
+        margin: 0;padding: 0;
+    }
+    ul,li {
+        list-style: none;
+    }
+    li {
+        line-height: 30px;
+        font-size: 14px;
+        border-bottom: 1px solid #ccc;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    ul{
+        width: 200px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        border-bottom: 0;
+    }
+    li:hover,
+    li.on {
+        background-color: #f4f4f4;
+    }
+    .info {
+        font-size: 12px;
+        color: #999;
+        line-height: 30px;
+        text-align: center;
+        width: 200px;
+    }
+    .test {
+        margin: 100px;
+    }
+    input {
+        width: 200px;
+        height: 40px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+        border-radius: 3px;
+        line-height: 40px;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        Vue.component('Select', {
+            props: {
+                value: String
+            },
+            data(){
+                return {
+                    iName: this.value
+                }
+            },
+            watch: {
+                iName(newVal, oldVal){
+                    this.$emit('input', newVal)
+                }
+            },
+            template: `
+            <div>
+                <input 
+                    type="text" 
+                    @click="showChildren" 
+                    v-model="iName"
+                    @keydown.prevent.up = "up"
+                    @keydown.prevent.down = "down"
+                    @keydown.prevent.enter = "enter"
+                    readonly
+                    >
+                <slot />
+            </div>
+            `,
+            methods: {
+                showChildren(){
+                    this.$children[0].show = !this.$children[0].show;
+                },
+                up(){
+                    this.$children[0].ind == 0? this.$children[0].ind=0:this.$children[0].ind--;
+                },
+                down(){
+                    this.$children[0].ind >= this.$children[0].iList.length -1? this.$children[0].ind = this.$children[0].iList.length -1: this.$children[0].ind++;
+                },
+                enter(){
+                    this.iName = this.$children[0].iList[this.$children[0].ind];
+                    this.$children[0].show = false;
+                }
+            }
+        });
+        
+        Vue.component('Option', {
+            props: {
+                list: Array
+            },
+            data(){
+                return {
+                    iList: [...this.list],
+                    show: false,
+                    ind: 0
+                }
+            },
+            watch: {
+                iList:{
+                    header(){
+                        this.$emit('update', [...iList]);
+                    },
+                    deep: true
+                }
+            },
+            methods: {
+                mi(item,index){
+                    this.$parent.iName = item;
+                    this.ind = index;
+                    this.show = false;
+                }
+            },
+            computed: {
+                personStr(){
+                    return this.$parent.iName
+                }
+            },
+            template: `
+            <ul class="list" v-show="show">
+                <li 
+                    v-for="(item,index) in iList" 
+                    @click="mi(item,index)"
+                    :class="{'on': index === ind}"
+                    >{{item}}</li>
+            </ul>
+            `
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    '山东省',
+                    '陕西省',
+                    '浙江省',
+                    '江苏省',
+                    '台湾省'
+                ],
+                name: '请选择省份'
+            },
+            methods: {
+                update(val){
+                    this.list = val;
+                }
+            },
+            template: `
+            <div class="test">
+            <p class="info">{{name}}</p>
+                <Select v-model="name">
+                    <Option :list="list" @update="update"></Option>
+                </Select>
+            </div>
+            `
+        });
+    </script>
+</body>
+
+</html>
